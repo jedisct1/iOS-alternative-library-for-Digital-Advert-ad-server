@@ -9,9 +9,48 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [[NSNotificationCenter defaultCenter] addObserver: self selector: @selector(doneButtonPushed) name: @"ext_url_load" object: nil];
+    webView.delegate = self;
     NSURLRequest *request = [[NSURLRequest alloc] initWithURL: uri];
 	[webView loadRequest: request];
 	[request release];
+}
+
+- (void)forceClose {
+	[[NSNotificationCenter defaultCenter] postNotificationName: @"ext_url_load" object: nil];	
+}
+
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
+	NSLog(@"> %s %@", __FUNCTION__, [error localizedDescription]);	
+	[NSTimer scheduledTimerWithTimeInterval: 2.0 target: self selector:@selector(forceClose) userInfo: nil repeats: NO];
+}
+
+- (BOOL) webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)aRequest navigationType:(UIWebViewNavigationType)navigationType {
+    NSString *requestString = [[aRequest URL] absoluteString];
+	NSMutableArray *components = [[[requestString componentsSeparatedByString:@":"] mutableCopy] autorelease];
+	
+	if ([components count] <= 1) {
+		return YES;
+	}
+	NSString *protocol = (NSString *)[[components objectAtIndex:0] copy];
+	[components removeObjectAtIndex:0];
+	[protocol autorelease];
+    
+	if (([protocol caseInsensitiveCompare: @"http"] == NSOrderedSame ||
+		 [protocol caseInsensitiveCompare: @"https"] == NSOrderedSame)) {
+		return YES;
+	}
+    activityIndicator.hidden = YES;
+	[[UIApplication sharedApplication] openURL: aRequest.URL];
+	
+	[NSTimer scheduledTimerWithTimeInterval: 2.0 target: self selector:@selector(forceClose) userInfo: nil repeats: NO];
+	
+	return NO;    
+}
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView {
+	[[NSUserDefaults standardUserDefaults] setInteger:0 forKey:@"WebKitCacheModelPreferenceKey"];
+	activityIndicator.hidden = YES;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -79,15 +118,6 @@
 
 - (IBAction) doneButtonPushed {
 	[self dismissModalViewControllerAnimated: YES];
-}
-
-- (void)webViewDidFinishLoad:(UIWebView *)webView {
-	[[NSUserDefaults standardUserDefaults] setInteger:0 forKey:@"WebKitCacheModelPreferenceKey"];
-	activityIndicator.hidden = YES;
-}
-
-- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
-	activityIndicator.hidden = YES;
 }
 
 @end
