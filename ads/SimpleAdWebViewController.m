@@ -9,7 +9,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-	NSURLRequest *request = [[NSURLRequest alloc] initWithURL: uri];
+    NSURLRequest *request = [[NSURLRequest alloc] initWithURL: uri];
 	[webView loadRequest: request];
 	[request release];
 }
@@ -44,7 +44,6 @@
 		[invocation setArgument:(void *)&anim atIndex:3];
 		[invocation invokeWithTarget:app];
 	}
-	
 	[super viewWillAppear: animated];
 }
 
@@ -52,7 +51,6 @@
 	UIApplication *app = [UIApplication sharedApplication];
 	
 	webView.delegate = nil;
-
 	SEL appSelector = NSSelectorFromString(@"setStatusBarHidden:withAnimation:");
 	BOOL hide = NO;
 	BOOL anim = YES;
@@ -68,7 +66,6 @@
 		[invocation setArgument:(void *)&anim atIndex:3];
 		[invocation invokeWithTarget:app];
 	}
-	
 	[super viewWillDisappear: animated];
 }
 

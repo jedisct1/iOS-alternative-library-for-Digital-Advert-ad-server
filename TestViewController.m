@@ -24,14 +24,21 @@
     [self.view addSubview: simpleAdView];
     
 //    
-// In order to switch to a pageId, just call: [simpleAdView load: @"xxxx"]
+// In order to set the current pageId, just call: [simpleAdView load: @"xxxx"]
 //
         
     [simpleAdView release];
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [self.view setFrame: [[UIScreen mainScreen] bounds]];
+    [super viewDidAppear: animated];
+}
+
 - (void)viewDidLoad
 {
+    [self.view setFrame: [[UIScreen mainScreen] bounds]];
     [self enableAds];
     [super viewDidLoad];
 }
