@@ -11,7 +11,7 @@
 
 - (void) miniBannerTouched: (UIButton *) button {
 	[initialTimer invalidate];
-	[UIView beginAnimations: nil context: nil];	
+	[UIView beginAnimations: nil context: nil]; 
 	if (initialTimer != nil) {
 		[UIView setAnimationDuration: 1.5F];
 	} else {
@@ -34,11 +34,11 @@
 		return;
 	}
 	SimpleAdWebViewController *adWebViewController = [[SimpleAdWebViewController alloc] initWithNibName: @"SimpleAdWebViewController" bundle: [NSBundle mainBundle]];
-	adWebViewController.modalTransitionStyle =  UIModalTransitionStyleFlipHorizontal;
-#ifdef WANTS_FULLSCREEN_AD    
+	adWebViewController.modalTransitionStyle =	UIModalTransitionStyleFlipHorizontal;
+#ifdef WANTS_FULLSCREEN_AD	  
 	adWebViewController.wantsFullScreenLayout = YES;
 #else
-	adWebViewController.wantsFullScreenLayout = NO;    
+	adWebViewController.wantsFullScreenLayout = NO;	   
 #endif
 	adWebViewController.hidesBottomBarWhenPushed = YES;
 
@@ -60,7 +60,7 @@
 	if (ad == nil || ad.bannerId == nil || ad.bannerImage == nil || ad.extendedBannerImage == nil) {
 		return;
 	}
-	if (currentAd == nil) {	
+	if (currentAd == nil) { 
 		[bannerButton setImage: ad.bannerImage forState: UIControlStateNormal];
 		[bannerButton setImage: ad.bannerImage forState: UIControlStateHighlighted];
 		[extendedBannerButton setImage: ad.extendedBannerImage forState: UIControlStateNormal];
@@ -85,7 +85,7 @@
 		[UIView setAnimationDuration: 2.0];
 		[UIView setAnimationTransition: UIViewAnimationTransitionCurlDown forView: self cache: TRUE];
 		[bannerButton removeFromSuperview];
-		[self addSubview: newBannerButton];	
+		[self addSubview: newBannerButton]; 
 		[extendedBannerButton removeFromSuperview];
 		[self addSubview: newExtendedBannerButton];
 		bannerButton = newBannerButton;
@@ -93,7 +93,7 @@
 		[UIView commitAnimations];
 		[bannerButton addTarget: self action: @selector(miniBannerTouched:) forControlEvents: UIControlEventTouchDown];
 		[extendedBannerButton addTarget: self action: @selector(extendedBannerTouched:) forControlEvents: UIControlEventTouchUpInside];
-		[currentAd release];        
+		[currentAd release];		
 	}
 	currentAd = ad;
 	currentAd = [ad retain];
@@ -230,7 +230,7 @@
 	wantedPageId = pageId;
 	[loadQueue addObject: wantedPageId];
 	[delayedLoadTimer invalidate];
-	delayedLoadTimer = [NSTimer scheduledTimerWithTimeInterval: 2.0F target: self selector: @selector(loadObjectsFromQueue) userInfo: nil repeats: NO];	
+	delayedLoadTimer = [NSTimer scheduledTimerWithTimeInterval: 2.0F target: self selector: @selector(loadObjectsFromQueue) userInfo: nil repeats: NO]; 
 
 	SimpleAd *ad = [simpleAds objectForKey: pageId];
 	if (ad != nil) {		
@@ -240,9 +240,9 @@
 }
 
 - (id)initWithFrame:(CGRect)frame {
-    if (!(self = [super initWithFrame: frame])) {
+	if (!(self = [super initWithFrame: frame])) {
 		return nil;
-    }
+	}
 	self.opaque = YES;
 	self.backgroundColor = [UIColor clearColor];
 	simpleAds = [[NSMutableDictionary alloc] init];
@@ -258,7 +258,7 @@
 	wantedPageId = nil;
 	loadQueue = [[NSMutableArray alloc] init];
 	
-    return self;
+	return self;
 }
 
 - (void)drawRect:(CGRect)rect {
@@ -279,7 +279,7 @@
 	delayedLoadTimer = nil;
 	[loadQueue release];
 	loadQueue = nil;
-    [super dealloc];
+	[super dealloc];
 }
 
 @end

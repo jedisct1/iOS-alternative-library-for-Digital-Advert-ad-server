@@ -27,8 +27,8 @@
 	redirectionUrl = [redirectionUrl stringByAddingPercentEscapesUsingEncoding: NSUTF8StringEncoding];
 	
 	[bannerId retain];
-	[bannerUrl retain];	
-	[extendedBannerUrl retain];	
+	[bannerUrl retain]; 
+	[extendedBannerUrl retain]; 
 	[redirectionUrl retain];
 }
 

@@ -4,7 +4,7 @@
 @interface SimpleAd : NSObject <NSXMLParserDelegate> {
 	NSString *pageId;
 	NSString *bannerId, *bannerUrl, *extendedBannerUrl, *redirectionUrl;
-	UIImage *bannerImage, *extendedBannerImage;	
+	UIImage *bannerImage, *extendedBannerImage; 
 }
 
 @property(nonatomic, retain) NSString *pageId;

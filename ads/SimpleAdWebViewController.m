@@ -8,10 +8,10 @@
 @synthesize uri;
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
-    [[NSNotificationCenter defaultCenter] addObserver: self selector: @selector(doneButtonPushed) name: @"ext_url_load" object: nil];
-    webView.delegate = self;
-    NSURLRequest *request = [[NSURLRequest alloc] initWithURL: uri];
+	[super viewDidLoad];
+	[[NSNotificationCenter defaultCenter] addObserver: self selector: @selector(doneButtonPushed) name: @"ext_url_load" object: nil];
+	webView.delegate = self;
+	NSURLRequest *request = [[NSURLRequest alloc] initWithURL: uri];
 	[webView loadRequest: request];
 	[request release];
 }
@@ -27,7 +27,7 @@
 }
 
 - (BOOL) webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)aRequest navigationType:(UIWebViewNavigationType)navigationType {
-    NSString *requestString = [[aRequest URL] absoluteString];
+	NSString *requestString = [[aRequest URL] absoluteString];
 	NSMutableArray *components = [[[requestString componentsSeparatedByString:@":"] mutableCopy] autorelease];
 	
 	if ([components count] <= 1) {
@@ -36,17 +36,17 @@
 	NSString *protocol = (NSString *)[[components objectAtIndex:0] copy];
 	[components removeObjectAtIndex:0];
 	[protocol autorelease];
-    
+	
 	if (([protocol caseInsensitiveCompare: @"http"] == NSOrderedSame ||
 		 [protocol caseInsensitiveCompare: @"https"] == NSOrderedSame)) {
 		return YES;
 	}
-    activityIndicator.hidden = YES;
+	activityIndicator.hidden = YES;
 	[[UIApplication sharedApplication] openURL: aRequest.URL];
 	
 	[NSTimer scheduledTimerWithTimeInterval: 2.0 target: self selector:@selector(forceClose) userInfo: nil repeats: NO];
 	
-	return NO;    
+	return NO;	  
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
@@ -55,16 +55,16 @@
 }
 
 - (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
+	[super didReceiveMemoryWarning];
 }
 
 - (void)viewDidUnload {
-	webView.delegate = nil;	
+	webView.delegate = nil; 
 	[webView release];
 	webView = nil;
 	[activityIndicator release];
 	activityIndicator = nil;	
-    [super viewDidUnload];
+	[super viewDidUnload];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -114,7 +114,7 @@
 }
 
 - (void)dealloc {
-    [super dealloc];
+	[super dealloc];
 }
 
 - (IBAction) doneButtonPushed {
