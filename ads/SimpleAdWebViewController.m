@@ -21,7 +21,8 @@
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
-	NSLog(@"> %s %@", __FUNCTION__, [error localizedDescription]);	
+	NSLog(@"> %s %@", __FUNCTION__, [error localizedDescription]);
+	activityIndicator.hidden = YES;
 	[NSTimer scheduledTimerWithTimeInterval: 2.0 target: self selector:@selector(forceClose) userInfo: nil repeats: NO];
 }
 
