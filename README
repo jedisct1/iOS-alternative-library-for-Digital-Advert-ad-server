@@ -9,7 +9,8 @@ unreachable.
 
 - the library sends as many calls to the server as the number of pages
 that were supposedly loaded. Thus, counters are consistent with other
-counters acting in a similar way.
+counters acting in a similar way. Every call to [SimpleAdView load:]
+will trigger an asynchronous HTTP request.
 
 - but in order to avoid flickering and degrading the user experience, ads
 are only refreshed when they actually change.
