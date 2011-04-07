@@ -13,7 +13,7 @@ third-party counters acting in a similar way. Every call to
 [SimpleAdView load:] will trigger an asynchronous HTTP request.
 
 - but in order to avoid flickering and degrading the user experience, ads
-are only redisplayed when they actually change.
+are only redisplayed after a slight delay and when they actually change.
 
 - requests are queued and processed in batch after a configurable
 delay, so that loading an ad doesn't have much impact on a
