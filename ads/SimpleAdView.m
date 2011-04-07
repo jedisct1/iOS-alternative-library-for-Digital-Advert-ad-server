@@ -35,7 +35,11 @@
 	}
 	SimpleAdWebViewController *adWebViewController = [[SimpleAdWebViewController alloc] initWithNibName: @"SimpleAdWebViewController" bundle: [NSBundle mainBundle]];
 	adWebViewController.modalTransitionStyle =  UIModalTransitionStyleFlipHorizontal;
+#ifdef WANTS_FULLSCREEN_AD    
 	adWebViewController.wantsFullScreenLayout = YES;
+#else
+	adWebViewController.wantsFullScreenLayout = NO;    
+#endif
 	adWebViewController.hidesBottomBarWhenPushed = YES;
 
 	NSURL *uri = [[NSURL alloc] initWithString: currentAd.redirectionUrl];	
