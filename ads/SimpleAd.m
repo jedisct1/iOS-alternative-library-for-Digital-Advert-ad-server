@@ -14,9 +14,6 @@
 	if (![elementName isEqualToString: @"banner"]) {
 		return;
 	}
-	if (bannerId != nil && bannerUrl != nil && extendedBannerUrl != nil && redirectionUrl != nil) {
-		return;
-	}
 	[bannerId release];
 	[bannerUrl release];
 	[extendedBannerUrl release];
