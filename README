@@ -1,0 +1,20 @@
+
+An independant, opensource client library for displaying ads served by
+Digital Advert on iOS devices.
+
+Features:
+
+- asynchronous: it never blocks even if the remote server is
+unreachable.
+
+- the library sends as many calls to the server as the number of pages
+that were supposedly loaded. Thus, counters are consistent with other
+counters acting in a similar way.
+
+- but in order to avoid flickering and degrading the user experience, ads
+are only refreshed when they actually change.
+
+- requests are queued and processed in batch after a configurable
+delay, so that loading an ad doesn't have much impact on a
+network-enabled application.
+
