@@ -12,11 +12,13 @@
 @implementation NSString (URINSStringAdditions)
 
 - (NSString *) urlEncode {
-	NSString *newString = NSMakeCollectable
-	([(NSString *) CFURLCreateStringByAddingPercentEscapes
-	  (kCFAllocatorDefault, (CFStringRef)self, NULL,
-	   CFSTR(":/?#[]@!$ &'()*+,;=\"<>%{}|\\^~`"),
-	   CFStringConvertNSStringEncodingToEncoding(NSUTF8StringEncoding)) autorelease]);
+    CFStringRef encodedCFString = CFURLCreateStringByAddingPercentEscapes
+    (kCFAllocatorDefault, (CFStringRef)self, NULL,
+     CFSTR(":/?#[]@!$ &'()*+,;=\"<>%{}|\\^~`"),
+     CFStringConvertNSStringEncodingToEncoding(NSUTF8StringEncoding));        
+    NSString *encodedString = (NSString *) encodedCFString;
+	NSString *newString = NSMakeCollectable(encodedString);
+    [newString autorelease];
 	if (newString) {
 		return newString;
 	}
